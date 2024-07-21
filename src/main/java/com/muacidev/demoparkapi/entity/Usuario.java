@@ -41,7 +41,7 @@ public class Usuario  implements Serializable {
     @Column(name = "data_modificacao")
     private LocalDateTime dataModificacao;
 
-    @Column(name = "criado_po")
+    @Column(name = "criado_por")
     private String criadoPor;
 
     @Column(name = "modificado_por")

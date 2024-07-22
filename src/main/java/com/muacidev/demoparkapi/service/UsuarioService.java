@@ -4,6 +4,7 @@ package com.muacidev.demoparkapi.service;
 import com.muacidev.demoparkapi.Exception.UsernameUniqueViolationException;
 import com.muacidev.demoparkapi.entity.Usuario;
 import com.muacidev.demoparkapi.repository.UsuarioRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +31,7 @@ public class UsuarioService {
     @Transactional(readOnly = true)
     public Usuario buscarPorId(Long id) {
         return usuarioRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Usuário não encontrado.")
+                () -> new EntityNotFoundException(String.format("Usuario {%s} nao encontrado.", id))
         );
     }
 

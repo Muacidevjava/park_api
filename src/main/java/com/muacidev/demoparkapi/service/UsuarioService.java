@@ -1,6 +1,7 @@
 package com.muacidev.demoparkapi.service;
 
 
+import com.muacidev.demoparkapi.Exception.UsernameUniqueViolationException;
 import com.muacidev.demoparkapi.entity.Usuario;
 import com.muacidev.demoparkapi.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,13 @@ public class UsuarioService {
 
     @Transactional
     public Usuario salvar(Usuario usuario) {
-        return usuarioRepository.save(usuario);
+        try {
+            return usuarioRepository.save(usuario);
+
+        } catch (org.springframework.dao.DataIntegrityViolationException ex) {
+            throw  new UsernameUniqueViolationException(String.format("Username {%s} ja existe.", usuario.getUsername()));
+        }
+
     }
 
     @Transactional(readOnly = true)

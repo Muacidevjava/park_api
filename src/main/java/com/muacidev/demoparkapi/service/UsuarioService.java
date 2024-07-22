@@ -1,5 +1,6 @@
 package com.muacidev.demoparkapi.service;
 
+
 import com.muacidev.demoparkapi.entity.Usuario;
 import com.muacidev.demoparkapi.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class UsuarioService {
+
     private final UsuarioRepository usuarioRepository;
 
     @Transactional

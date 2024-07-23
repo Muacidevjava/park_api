@@ -2,6 +2,7 @@ package com.muacidev.demoparkapi;
 
 import com.muacidev.demoparkapi.web.dto.UsuarioCreateDto;
 import com.muacidev.demoparkapi.web.dto.UsuarioResponseDto;
+import com.muacidev.demoparkapi.web.exception.ErrorMessage;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -39,6 +40,101 @@ public class UsuarioIT {
 
 
     }
+    @Test
+    public void createUsuario_ComUsernameValidos_RetornarErroMessageStatus422(){
+
+        ErrorMessage responseBody = testClient
+                .post()
+                .uri("/api/v1/usuarios")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(new UsuarioCreateDto("","123456"))
+                .exchange()
+                .expectStatus().isEqualTo(422)
+                .expectBody(ErrorMessage.class)
+                .returnResult().getResponseBody();
+
+
+        org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(responseBody.getStatus()).isEqualTo(422);
+
+        responseBody = testClient
+                .post()
+                .uri("/api/v1/usuarios")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(new UsuarioCreateDto("tody@","123456"))
+                .exchange()
+                .expectStatus().isEqualTo(422)
+                .expectBody(ErrorMessage.class)
+                .returnResult().getResponseBody();
+
+
+        org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(responseBody.getStatus()).isEqualTo(422);
+
+        responseBody = testClient
+                .post()
+                .uri("/api/v1/usuarios")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(new UsuarioCreateDto("tody@email","123456"))
+                .exchange()
+                .expectStatus().isEqualTo(422)
+                .expectBody(ErrorMessage.class)
+                .returnResult().getResponseBody();
+
+
+        org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(responseBody.getStatus()).isEqualTo(422);
+
+
+    }
+    @Test
+    public void createUsuario_ComPasswordInValidos_RetornarErroMessageStatus422(){
+
+        ErrorMessage responseBody = testClient
+                .post()
+                .uri("/api/v1/usuarios")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(new UsuarioCreateDto("tody#email.com",""))
+                .exchange()
+                .expectStatus().isEqualTo(422)
+                .expectBody(ErrorMessage.class)
+                .returnResult().getResponseBody();
+
+
+        org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(responseBody.getStatus()).isEqualTo(422);
+
+        responseBody = testClient
+                .post()
+                .uri("/api/v1/usuarios")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(new UsuarioCreateDto("tody@email.com","123"))
+                .exchange()
+                .expectStatus().isEqualTo(422)
+                .expectBody(ErrorMessage.class)
+                .returnResult().getResponseBody();
+
+
+        org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(responseBody.getStatus()).isEqualTo(422);
+
+        responseBody = testClient
+                .post()
+                .uri("/api/v1/usuarios")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(new UsuarioCreateDto("tody@email.com","123456789"))
+                .exchange()
+                .expectStatus().isEqualTo(422)
+                .expectBody(ErrorMessage.class)
+                .returnResult().getResponseBody();
+
+
+        org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(responseBody.getStatus()).isEqualTo(422);
+
+
+    }
+
 
 
 

@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
 import lombok.ToString;
-import org.apache.commons.collections4.map.HashedMap;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Getter
@@ -54,7 +54,7 @@ public class ErrorMessage {
     }
 
     private void addErrors(BindingResult result) {
-        this.errors = new HashedMap<>();
+        this.errors = new HashMap<>();
         for(FieldError fieldError : result.getFieldErrors()) {
             this.errors.put(fieldError.getField(), fieldError.getDefaultMessage());
         }

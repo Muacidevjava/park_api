@@ -1,7 +1,7 @@
 package com.muacidev.demoparkapi.service;
 
 
-import com.muacidev.demoparkapi.Exception.UsernameUniqueViolationException;
+import com.muacidev.demoparkapi.exception.UsernameUniqueViolationException;
 import com.muacidev.demoparkapi.entity.Usuario;
 import com.muacidev.demoparkapi.repository.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;

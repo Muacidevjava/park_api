@@ -19,7 +19,7 @@ public class SpringDocsApiConfig {
                         new Info()
                                 .title("REST API - Spring Park")
                                 .description("API para gestão de estacionamento de veiculos")
-                                .version("1.0.0")
+                                .version("v1")
                                 .license(new License().name("Apache 2.0").url("https://www.apache.org/licenses/LICENSE-2.0"))
                                 .contact(new Contact().name("Muaci José").email("muaci@yahoo.com"))
 

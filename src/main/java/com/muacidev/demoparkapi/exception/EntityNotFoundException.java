@@ -1,4 +1,4 @@
-package com.muacidev.demoparkapi.Exception;
+package com.muacidev.demoparkapi.exception;
 
 public class EntityNotFoundException extends RuntimeException {
 

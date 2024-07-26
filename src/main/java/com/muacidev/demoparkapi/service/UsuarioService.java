@@ -31,7 +31,7 @@ public class UsuarioService {
     @Transactional(readOnly = true)
     public Usuario buscarPorId(Long id) {
         return usuarioRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException(String.format("Usuario {%s} nao encontrado.", id))
+                () -> new EntityNotFoundException(String.format("Usuario id=%s nao encontrado.", id))
         );
     }
 
@@ -53,5 +53,17 @@ public class UsuarioService {
     @Transactional(readOnly = true)
     public List<Usuario> buscarTodos() {
         return usuarioRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public Usuario buscarPorUsername(String username) {
+        return usuarioRepository.findByUsername(username).orElseThrow(
+                () -> new EntityNotFoundException(String.format("Usuario com '%s' nao encontrado.", username))
+        );
+    }
+
+    @Transactional(readOnly = true)
+    public Usuario.Role buscarRolePorUsername(String username) {
+        return  usuarioRepository.findRoleByUsername(username);
     }
 }

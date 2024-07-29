@@ -20,7 +20,7 @@ public class JwtUltils
 
     public static final String JWT_Authorization = "Authorization";
 
-    public static final String SECRET_kEY = "012345678-012345679-0123456789";
+    public static final String SECRET_kEY = "0123456789-0123456789-0123456789";
 
     public static final long EXPIRE_DAY = 0;
 

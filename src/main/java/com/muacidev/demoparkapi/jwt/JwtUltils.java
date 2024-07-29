@@ -18,7 +18,7 @@ public class JwtUltils
 {
     public static final String JWT_BEARER = "Bearer ";
 
-    public static final String JWT_Authorization = "Authorization";
+    public static final String JWT_AUTHORIZATION = "Authorization";
 
     public static final String SECRET_kEY = "0123456789-0123456789-0123456789";
 

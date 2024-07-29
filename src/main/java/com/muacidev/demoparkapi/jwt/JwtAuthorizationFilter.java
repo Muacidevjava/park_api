@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,13 +20,14 @@ import java.io.IOException;
 public class JwtAuthorizationFilter extends OncePerRequestFilter{
 
 
-
+    @Autowired
     private JwtUserDetailsService detailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        final String token = request.getHeader(JwtUltils.JWT_Authorization);
+        final String token = request.getHeader(JwtUltils.JWT_AUTHORIZATION);
+
         if (token == null || !token.startsWith(JwtUltils.JWT_BEARER)) {
             log.info("JWT Token está nulo , vazio ou não iniciado com 'Bearer'.");
             filterChain.doFilter(request, response);

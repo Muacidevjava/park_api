@@ -26,7 +26,7 @@ public class JwtUltils
 
     public static final long EXPIRE_HOUR = 0;
 
-    public static final long EXPIRE_MINUTE = 2;
+    public static final long EXPIRE_MINUTE = 30;
 
     private JwtUltils()
     {

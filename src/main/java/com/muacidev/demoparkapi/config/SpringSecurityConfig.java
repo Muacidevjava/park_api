@@ -1,5 +1,6 @@
 package com.muacidev.demoparkapi.config;
 
+import com.muacidev.demoparkapi.jwt.JwtAuthenticationEntryPoint;
 import com.muacidev.demoparkapi.jwt.JwtAuthorizationFilter;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.context.annotation.Bean;
@@ -37,8 +38,9 @@ public class SpringSecurityConfig {
                 ).addFilterBefore(
                         jwtAuthorizationFilter(),
                         UsernamePasswordAuthenticationFilter.class
-                )
-                .build();
+                ).exceptionHandling(ex -> ex
+                        .authenticationEntryPoint(new JwtAuthenticationEntryPoint())
+                ).build();
 
     }
     @Bean

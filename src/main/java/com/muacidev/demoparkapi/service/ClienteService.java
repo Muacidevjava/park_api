@@ -4,6 +4,7 @@ import com.muacidev.demoparkapi.entity.Cliente;
 import com.muacidev.demoparkapi.exception.CpfUniqueViolationException;
 import com.muacidev.demoparkapi.exception.UsernameUniqueViolationException;
 import com.muacidev.demoparkapi.repository.ClienteRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -26,4 +27,10 @@ public class ClienteService {
         }
     }
 
+@Transactional(readOnly = true)
+    public Cliente buscarPorId(Long id) {
+        return clienteRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException(String.format("Cliente com id '%s' não encontrado.", id))
+        );
+    }
 }

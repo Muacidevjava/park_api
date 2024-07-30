@@ -1,6 +1,5 @@
 package com.muacidev.demoparkapi.entity;
 
-import aj.org.objectweb.asm.commons.SerialVersionUIDAdder;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,9 +21,9 @@ import java.util.Objects;
 @Setter
 @Getter
 @Entity
-@Table(name = "clentes")
+@Table(name = "clintes")
 @EntityListeners(AuditingEntityListener.class)
-public class Clente implements Serializable {
+public class Cliente implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -62,8 +61,8 @@ public class Clente implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Clente clente = (Clente) o;
-        return Objects.equals(getId(), clente.getId());
+        Cliente cliente = (Cliente) o;
+        return Objects.equals(getId(), cliente.getId());
     }
 
     @Override

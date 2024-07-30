@@ -21,7 +21,7 @@ public class ClienteIT {
     WebTestClient testClient;
 
     @Test
-    public void criarCliente_ComDadosValidos_RetornarClienteComStatus201() {
+    public void criarCliente_ComDadosValidos_RetornarClienteComStatus201(){
         ClienteResponseDto responseBody = testClient
                 .post()
                 .uri("/api/v1/clientes")

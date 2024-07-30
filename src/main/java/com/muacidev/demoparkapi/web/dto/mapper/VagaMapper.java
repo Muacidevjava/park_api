@@ -3,10 +3,11 @@ package com.muacidev.demoparkapi.web.dto.mapper;
 import com.muacidev.demoparkapi.entity.Vaga;
 import com.muacidev.demoparkapi.web.dto.VagaCreateDto;
 import com.muacidev.demoparkapi.web.dto.VagaResponseDto;
+import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 
-@NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class VagaMapper {
     public static Vaga toVaga(VagaCreateDto  dto) {
         return new ModelMapper().map(dto,Vaga.class);

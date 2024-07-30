@@ -26,30 +26,25 @@ public class Vaga implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(name = "codigo", nullable = false, unique = true, length = 4)
-    private String nome;
+    private String codigo;
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
-    private StatuVaga status;
-
+    private StatusVaga status;
     @CreatedDate
     @Column(name = "data_criacao")
     private LocalDateTime dataCriacao;
-
     @LastModifiedDate
     @Column(name = "data_modificacao")
     private LocalDateTime dataModificacao;
-
     @CreatedBy
     @Column(name = "criado_por")
     private String criadoPor;
-
     @LastModifiedBy
     @Column(name = "modificado_por")
     private String modificadoPor;
 
-    public enum StatuVaga {
+    public enum StatusVaga {
         LIVRE,
         OCUPADA
     }

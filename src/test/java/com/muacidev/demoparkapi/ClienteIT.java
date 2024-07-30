@@ -21,7 +21,7 @@ public class ClienteIT {
     WebTestClient testClient;
 
     @Test
-    public void criarCliente_ComDadosValidos_RetornarClienteComStatus201(){
+    public void criarCliente_ComDadosValidos_RetornarClienteComStatus201() {
         ClienteResponseDto responseBody = testClient
                 .post()
                 .uri("/api/v1/clientes")
@@ -38,6 +38,7 @@ public class ClienteIT {
         org.assertj.core.api.Assertions.assertThat(responseBody.getNome()).isEqualTo("Tobias Ferreira");
         org.assertj.core.api.Assertions.assertThat(responseBody.getCpf()).isEqualTo("91191064085");
     }
+
     @Test
     public void criarCliente_ComCpfJaCadastrado_RetornarErrorMessageStatus409() {
         ErrorMessage responseBody = testClient
@@ -54,6 +55,7 @@ public class ClienteIT {
         org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
         org.assertj.core.api.Assertions.assertThat(responseBody.getStatus()).isEqualTo(409);
     }
+
     @Test
     public void criarCliente_ComDadosInvalidos_RetornarErrorMessageStatus422() {
         ErrorMessage responseBody = testClient
@@ -98,6 +100,7 @@ public class ClienteIT {
         org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
         org.assertj.core.api.Assertions.assertThat(responseBody.getStatus()).isEqualTo(422);
     }
+
     @Test
     public void criarCliente_ComUsuarioNaoPermitido_RetornarErrorMessageStatus403() {
         ErrorMessage responseBody = testClient
@@ -114,6 +117,7 @@ public class ClienteIT {
         org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
         org.assertj.core.api.Assertions.assertThat(responseBody.getStatus()).isEqualTo(403);
     }
+
     @Test
     public void buscarCliente_ComIdExistentePeloAdmin_RetornarClienteComStatus200() {
         ClienteResponseDto responseBody = testClient
@@ -158,6 +162,7 @@ public class ClienteIT {
         org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
         org.assertj.core.api.Assertions.assertThat(responseBody.getStatus()).isEqualTo(403);
     }
+
     @Test
     public void buscarClientes_ComPaginacaoPeloAdmin_RetornarClientesComStatus200() {
         PageableDto responseBody = testClient
@@ -188,6 +193,7 @@ public class ClienteIT {
         org.assertj.core.api.Assertions.assertThat(responseBody.getNumber()).isEqualTo(1);
         org.assertj.core.api.Assertions.assertThat(responseBody.getTotalPages()).isEqualTo(2);
     }
+
     @Test
     public void buscarClientes_ComPaginacaoPeloCliente_RetornarErrorMessageComStatus403() {
         ErrorMessage responseBody = testClient
@@ -202,6 +208,7 @@ public class ClienteIT {
         org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
         org.assertj.core.api.Assertions.assertThat(responseBody.getStatus()).isEqualTo(403);
     }
+
     @Test
     public void buscarCliente_ComDadosDoTokenDeCliente_RetornarClienteComStatus200() {
         ClienteResponseDto responseBody = testClient

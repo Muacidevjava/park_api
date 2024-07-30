@@ -55,7 +55,19 @@ public class ClienteController {
                 .body(ClienteMapper.toDto(cliente));
 
     }
+
+    @Operation(summary = "Localizar um Cliente", description = "Recurso para Localizar um Cliente pelo ID. " +
+            "Requisição exige um Bearer Token. Acesso restrito a Role='ADMIN'",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Recurso Localizado com sucesso",
+                            content = @Content(mediaType = "application/json;charset=utf-8", schema = @Schema(implementation = ClienteResponseDto.class))),
+                    @ApiResponse(responseCode = "404", description = "Cliente não encontrado",
+                            content = @Content(mediaType = "application/json;charset=utf-8", schema = @Schema(implementation = ErrorMessage.class))),
+                    @ApiResponse(responseCode = "403", description = "Recurso não permitido ao perfil de CLIENTE",
+                            content = @Content(mediaType = "application/json;charset=utf-8", schema = @Schema(implementation = ErrorMessage.class)))
+            })
     @GetMapping("{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ClienteResponseDto> getById(@PathVariable Long id) {
         Cliente cliente = clienteService.buscarPorId(id);
         return ResponseEntity.ok(ClienteMapper.toDto(cliente));

@@ -34,6 +34,7 @@ public class AutenticacaoIT {
 
 
     }
+
     @Test
     public void autenticar_ComCredenciasInValidas_RetornarErroMessageComStatus400() {
         ErrorMessage responseBody = testClient
@@ -62,6 +63,7 @@ public class AutenticacaoIT {
         org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
         org.assertj.core.api.Assertions.assertThat(responseBody.getStatus()).isEqualTo(400);
     }
+
     @Test
     public void autenticar_ComUsernameInValidos_RetornarErroMessageComStatus422() {
         ErrorMessage responseBody = testClient
@@ -92,6 +94,7 @@ public class AutenticacaoIT {
 
 
     }
+
     @Test
     public void autenticar_ComPasswordInValidos_RetornarErroMessageComStatus422() {
         ErrorMessage responseBody = testClient

@@ -2,12 +2,15 @@ package com.muacidev.demoparkapi.web.controller;
 
 import com.muacidev.demoparkapi.entity.Cliente;
 import com.muacidev.demoparkapi.jwt.JwtUserDetails;
+import com.muacidev.demoparkapi.repository.projection.ClienteProjection;
 import com.muacidev.demoparkapi.service.ClienteService;
 import com.muacidev.demoparkapi.service.UsuarioService;
 import com.muacidev.demoparkapi.web.dto.ClienteCreateDto;
 import com.muacidev.demoparkapi.web.dto.ClienteResponseDto;
+import com.muacidev.demoparkapi.web.dto.PageableDto;
 import com.muacidev.demoparkapi.web.dto.UsuarioResponseDto;
 import com.muacidev.demoparkapi.web.dto.mapper.ClienteMapper;
+import com.muacidev.demoparkapi.web.dto.mapper.PageableMapper;
 import com.muacidev.demoparkapi.web.exception.ErrorMessage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -78,9 +81,9 @@ public class ClienteController {
     }
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Page<Cliente>> getAll(Pageable pageable) {
-        Page<Cliente> cliente = clienteService.buscarTodos( pageable);
-        return ResponseEntity.ok(cliente);
+    public ResponseEntity<PageableDto> getAll(Pageable pageable) {
+        Page<ClienteProjection> clientes = clienteService.buscarTodos(pageable);
+        return ResponseEntity.ok(PageableMapper.toDto(clientes));
     }
 
 

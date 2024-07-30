@@ -3,6 +3,7 @@ package com.muacidev.demoparkapi.service;
 import com.muacidev.demoparkapi.entity.Cliente;
 import com.muacidev.demoparkapi.exception.CpfUniqueViolationException;
 import com.muacidev.demoparkapi.repository.ClienteRepository;
+import com.muacidev.demoparkapi.repository.projection.ClienteProjection;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
@@ -38,7 +39,7 @@ public class ClienteService {
     }
 
     @Transactional(readOnly = true)
-    public Page<Cliente> buscarTodos(Pageable pageable) {
-        return clienteRepository.findAll(pageable);
+    public Page<ClienteProjection> buscarTodos(Pageable pageable) {
+        return clienteRepository.findAllPageable(pageable);
     }
 }

@@ -16,25 +16,17 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Setter
-@Getter
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
 @Entity
 @Table(name = "clientes")
 @EntityListeners(AuditingEntityListener.class)
 public class Cliente implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(name = "nome", nullable = false, length = 100)
     private String nome;
-
     @Column(name = "cpf", nullable = false, unique = true, length = 11)
     private String cpf;
     @OneToOne
@@ -44,15 +36,12 @@ public class Cliente implements Serializable {
     @CreatedDate
     @Column(name = "data_criacao")
     private LocalDateTime dataCriacao;
-
     @LastModifiedDate
     @Column(name = "data_modificacao")
     private LocalDateTime dataModificacao;
-
     @CreatedBy
     @Column(name = "criado_por")
     private String criadoPor;
-
     @LastModifiedBy
     @Column(name = "modificado_por")
     private String modificadoPor;
@@ -62,11 +51,11 @@ public class Cliente implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cliente cliente = (Cliente) o;
-        return Objects.equals(getId(), cliente.getId());
+        return Objects.equals(id, cliente.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hash(id);
     }
 }

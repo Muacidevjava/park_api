@@ -34,62 +34,57 @@ import java.util.List;
 
 import static io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY;
 
-@Tag(name = "Clientes", description = "Contém todas as operaçoes relativa aos recursos para cadastro, edição  de leitura de um cliente")
+@Tag(name = "Clientes", description = "Contém todas as opereções relativas ao recurso de um cliente")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/clientes")
+@RequestMapping("api/v1/clientes")
 public class ClienteController {
 
     private final ClienteService clienteService;
     private final UsuarioService usuarioService;
 
-    @Operation(summary = "Criar um novo Cliente", description = "Recurso para criar um novo Client vinculado a um usuario cadastrado. " +
-            "Requisição exige um Bearer Token. Acesso restrito a Role='CLIENTE'",
+    @Operation(summary = "Criar um novo cliente",
+            description = "Recurso para criar um novo cliente vinculado a um usuário cadastrado. " +
+                    "Requisição exige uso de um bearer token. Acesso restrito a Role='CLIENTE'",
             security = @SecurityRequirement(name = "security"),
             responses = {
                     @ApiResponse(responseCode = "201", description = "Recurso criado com sucesso",
-                            content = @Content(mediaType = "application/json;charset=utf-8", schema = @Schema(implementation = ClienteResponseDto.class))),
+                            content = @Content(mediaType = " application/json;charset=UTF-8", schema = @Schema(implementation = ClienteResponseDto.class))),
                     @ApiResponse(responseCode = "409", description = "Cliente CPF já possui cadastro no sistema",
-                            content = @Content(mediaType = "application/json;charset=utf-8", schema = @Schema(implementation = ErrorMessage.class))),
-                    @ApiResponse(responseCode = "422", description = "Recurso não processado por dados de entrada invalidos",
-                            content = @Content(mediaType = "application/json;charset=utf-8", schema = @Schema(implementation = ErrorMessage.class))),
-                    @ApiResponse(responseCode = "403", description = "Recurso não permitido ao perfil de ADMIN",
-                            content = @Content(mediaType = "application/json;charset=utf-8", schema = @Schema(implementation = ErrorMessage.class)))
+                            content = @Content(mediaType = " application/json;charset=UTF-8", schema = @Schema(implementation = ErrorMessage.class))),
+                    @ApiResponse(responseCode = "422", description = "Recurso não processado por falta de dados ou dados inválidos",
+                            content = @Content(mediaType = " application/json;charset=UTF-8", schema = @Schema(implementation = ErrorMessage.class))),
+                    @ApiResponse(responseCode = "403", description = "Recurso não permito ao perfil de ADMIN",
+                            content = @Content(mediaType = " application/json;charset=UTF-8", schema = @Schema(implementation = ErrorMessage.class)))
             })
-
     @PostMapping
     @PreAuthorize("hasRole('CLIENTE')")
-    public ResponseEntity<ClienteResponseDto> create(@RequestBody @Valid ClienteCreateDto dto
-            , @AuthenticationPrincipal JwtUserDetails userDetails) {
+    public ResponseEntity<ClienteResponseDto> create(@RequestBody @Valid ClienteCreateDto dto,
+                                                     @AuthenticationPrincipal JwtUserDetails userDetails) {
         Cliente cliente = ClienteMapper.toCliente(dto);
         cliente.setUsuario(usuarioService.buscarPorId(userDetails.getId()));
-        cliente = clienteService.salvar(cliente);
-        return ResponseEntity
-                .status(201)
-                .body(ClienteMapper.toDto(cliente));
-
+        clienteService.salvar(cliente);
+        return ResponseEntity.status(201).body(ClienteMapper.toDto(cliente));
     }
 
-    @Operation(summary = "Localizar um Cliente", description = "Recurso para Localizar um Cliente pelo ID. " +
-            "Requisição exige um Bearer Token. Acesso restrito a Role='ADMIN'",
+    @Operation(summary = "Localizar um cliente", description = "Recurso para localizar um cliente pelo ID. " +
+            "Requisição exige uso de um bearer token. Acesso restrito a Role='ADMIN'",
             security = @SecurityRequirement(name = "security"),
             responses = {
-                    @ApiResponse(responseCode = "200", description = "Recurso Localizado com sucesso",
-                            content = @Content(mediaType = "application/json;charset=utf-8", schema = @Schema(implementation = ClienteResponseDto.class))),
+                    @ApiResponse(responseCode = "200", description = "Recurso localizado com sucesso",
+                            content = @Content(mediaType = " application/json;charset=UTF-8", schema = @Schema(implementation = ClienteResponseDto.class))),
                     @ApiResponse(responseCode = "404", description = "Cliente não encontrado",
-                            content = @Content(mediaType = "application/json;charset=utf-8", schema = @Schema(implementation = ErrorMessage.class))),
-                    @ApiResponse(responseCode = "403", description = "Recurso não permitido ao perfil de CLIENTE",
-                            content = @Content(mediaType = "application/json;charset=utf-8", schema = @Schema(implementation = ErrorMessage.class)))
-
+                            content = @Content(mediaType = " application/json;charset=UTF-8", schema = @Schema(implementation = ErrorMessage.class))),
+                    @ApiResponse(responseCode = "403", description = "Recurso não permito ao perfil de CLIENTE",
+                            content = @Content(mediaType = " application/json;charset=UTF-8", schema = @Schema(implementation = ErrorMessage.class)))
             })
-
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ClienteResponseDto> getById(@PathVariable Long id) {
         Cliente cliente = clienteService.buscarPorId(id);
         return ResponseEntity.ok(ClienteMapper.toDto(cliente));
-
     }
+
     @Operation(summary = "Recuperar lista de clientes",
             description = "Requisição exige uso de um bearer token. Acesso restrito a Role='ADMIN' ",
             security = @SecurityRequirement(name = "security"),
@@ -118,12 +113,12 @@ public class ClienteController {
             })
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<PageableDto> getAll(@Parameter(hidden = true) @PageableDefault(size = 5,sort = {"nome"}, page = 0) Pageable pageable) {
+    public ResponseEntity<PageableDto> getAll(@Parameter(hidden = true)
+                                              @PageableDefault(size = 5, sort = {"nome"}) Pageable pageable) {
         Page<ClienteProjection> clientes = clienteService.buscarTodos(pageable);
         return ResponseEntity.ok(PageableMapper.toDto(clientes));
-
-
     }
+
     @Operation(summary = "Recuperar dados do cliente autenticado",
             description = "Requisição exige uso de um bearer token. Acesso restrito a Role='CLIENTE'",
             security = @SecurityRequirement(name = "security"),
@@ -140,9 +135,7 @@ public class ClienteController {
     @GetMapping("/detalhes")
     @PreAuthorize("hasRole('CLIENTE')")
     public ResponseEntity<ClienteResponseDto> getDetalhes(@AuthenticationPrincipal JwtUserDetails userDetails) {
-       Cliente cliente = clienteService.buscarPorUsuarioId(userDetails.getId());
+        Cliente cliente = clienteService.buscarPorUsuarioId(userDetails.getId());
         return ResponseEntity.ok(ClienteMapper.toDto(cliente));
     }
-
-
 }

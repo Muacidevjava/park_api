@@ -18,7 +18,6 @@ public class JwtUserDetails extends User {
 
     public Long getId() {
         return this.usuario.getId();
-
     }
 
     public String getRole() {

@@ -45,8 +45,7 @@ public class Vaga implements Serializable {
     private String modificadoPor;
 
     public enum StatusVaga {
-        LIVRE,
-        OCUPADA
+        LIVRE, OCUPADA
     }
 
     @Override
@@ -59,6 +58,6 @@ public class Vaga implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hash(id);
     }
 }

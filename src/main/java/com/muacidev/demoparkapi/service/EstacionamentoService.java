@@ -35,10 +35,11 @@ public class EstacionamentoService {
         clienteVaga.setVaga(vaga);
 
         clienteVaga.setDataEntrada(LocalDateTime.now());
+
         clienteVaga.setRecibo(EstacionamentoUtils.gerarRecibo());
 
-        clienteVagaService.salvar(clienteVaga);
-        return clienteVaga;
+        return clienteVagaService.salvar(clienteVaga);
+
 
     }
 

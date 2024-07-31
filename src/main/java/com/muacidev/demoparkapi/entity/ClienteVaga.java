@@ -20,7 +20,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "cliente_tem_vagas")
 @EntityListeners(AuditingEntityListener.class)
-public class ClienteVaga implements Serializable {
+public class ClienteVaga  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

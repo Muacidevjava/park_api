@@ -46,7 +46,7 @@ public class EstacionamentoService {
 
     @Transactional
     public ClienteVaga checkout(String recibo) {
-        ClienteVaga clienteVaga = clienteVagaService.bucarPorRecibo(recibo);
+        ClienteVaga clienteVaga = clienteVagaService.buscarPorRecibo(recibo);
         LocalDateTime dataSaida = LocalDateTime.now();
 
         BigDecimal valor = EstacionamentoUtils.calcularCusto(clienteVaga.getDataEntrada(), dataSaida);

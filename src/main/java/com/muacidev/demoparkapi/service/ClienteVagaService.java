@@ -11,9 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.awt.print.Pageable;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class ClienteVagaService {
+
     private final ClienteVagaRepository repository;
 
     @Transactional
@@ -22,10 +23,10 @@ public class ClienteVagaService {
     }
 
     @Transactional(readOnly = true)
-    public ClienteVaga bucarPorRecibo(String recibo) {
+    public ClienteVaga buscarPorRecibo(String recibo) {
         return repository.findByReciboAndDataSaidaIsNull(recibo).orElseThrow(
-                () -> new  EntityNotFoundException(
-                        String.format("Recibo '%s' não encontrado no sistema ou check-ou jpa realizado", recibo)
+                () -> new EntityNotFoundException(
+                        String.format("Recibo '%s' não encontrado no sistema ou check-out já realizado", recibo)
                 )
         );
     }

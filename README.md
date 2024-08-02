@@ -16,5 +16,5 @@
 ### Clonar o Repositório
 
 ```bash
-git clone https://github.com/usuario/demoparkapi.git
-cd demoparkapi
+git clone https://github.com/usuario/demoparkapi.git](https://github.com/Muacidevjava/park_api.git
+

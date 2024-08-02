@@ -6,15 +6,13 @@ import com.muacidev.demoparkapi.repository.ClienteVagaRepository;
 import com.muacidev.demoparkapi.repository.projection.ClienteVagaProjection;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.awt.print.Pageable;
-
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class ClienteVagaService {
-
     private final ClienteVagaRepository repository;
 
     @Transactional

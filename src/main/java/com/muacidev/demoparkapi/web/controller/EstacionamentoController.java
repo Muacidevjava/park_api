@@ -168,7 +168,7 @@ public class EstacionamentoController {
     public ResponseEntity<PageableDto> getAllEstacionamentosPorCpf(@PathVariable String cpf, @Parameter(hidden = true)
     @PageableDefault(size = 5, sort = "dataEntrada",
             direction = Sort.Direction.ASC) Pageable pageable) {
-        Page<ClienteVagaProjection> projection = clienteVagaService.buscarTodosPorClienteCpf(cpf, pageable);
+        Page<ClienteVagaProjection> projection = clienteVagaService.buscarTodosPorClienteCpf(cpf, (org.springframework.data.domain.Pageable) pageable);
         PageableDto dto = PageableMapper.toDto(projection);
         return ResponseEntity.ok(dto);
     }
@@ -205,7 +205,7 @@ public class EstacionamentoController {
                                                                               size = 5, sort = "dataEntrada",
                                                                               direction = Sort.Direction.ASC) Pageable pageable) {
 
-        Page<ClienteVagaProjection> projection = clienteVagaService.buscarTodosPorUsuarioId(user.getId(), pageable);
+        Page<ClienteVagaProjection> projection = clienteVagaService.buscarTodosPorUsuarioId(user.getId(), (org.springframework.data.domain.Pageable) pageable);
         PageableDto dto = PageableMapper.toDto(projection);
         return ResponseEntity.ok(dto);
     }

@@ -8,7 +8,7 @@
 
 - Java 11 ou superior
 - Maven
-- PostgreSQL
+- PostgreSQL ou Mysql
 - Git
 
 ## Configuração
